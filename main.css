@@ -26,7 +26,8 @@ body {
 
 .input-wrapper {
     border-bottom: 1px solid #282822;
-    margin-bottom: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .input-wrapper > label {
@@ -38,6 +39,7 @@ body {
     border: none;
     width: 300px;
     height: 35px;
+    outline: none;
 }
 
 .btn-primary {
@@ -64,4 +66,9 @@ body {
 
 .decoration-link {
     color: #282822;
+}
+
+.message-error {
+    color: red;
+    font-size: 14px;
 }
