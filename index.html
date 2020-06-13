@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,17 +8,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./main.css">
 
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.0/firebase-auth.js"></script>
+    
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyAJQjIBViMGH6R1Zg5cWUwoe55QLhop4c8",
+            authDomain: "ci43-2b21f.firebaseapp.com",
+            databaseURL: "https://ci43-2b21f.firebaseio.com",
+            projectId: "ci43-2b21f",
+            storageBucket: "ci43-2b21f.appspot.com",
+            messagingSenderId: "277343024268",
+            appId: "1:277343024268:web:bb19c6b6af15e83f67b7a9"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <script src="./js/utils.js"></script>
     <script src="./js/components.js"></script>
     <script src="./js/model.js"></script>
     <script src="./js/view.js"></script>
     <script src="./js/controller.js"></script>
-    <script src="./js/main.js"></script>    
+    <script src="./js/main.js"></script>
 </head>
+
 <body>
     <article id="content">
 
     </article>
- 
+
 
 </body>
+
 </html>

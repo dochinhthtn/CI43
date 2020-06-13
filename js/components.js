@@ -53,7 +53,7 @@ components.signUp = `
 
 components.signIn = `
 <section class="sign-in-container">
-    <form class="form-sign-in">
+    <form class="form-sign-in" id="form-sign-in">
         <h2 class="form-title">Sign In</h2>
 
         <div class="input-wrapper">
@@ -62,6 +62,7 @@ components.signIn = `
             </label>
             <input type="text" name="email" placeholder="Email" id="email">
         </div>
+        <div class="message-error" id="email-error"></div>
 
         <div class="input-wrapper">
             <label for="password">
@@ -69,6 +70,7 @@ components.signIn = `
             </label>
             <input type="password" name="password" placeholder="Password" id="password">
         </div>
+        <div class="message-error" id="password-error"></div>
 
         <button class="btn-primary">Login</button>
     </form>
