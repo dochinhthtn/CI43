@@ -72,3 +72,12 @@ body {
     color: red;
     font-size: 14px;
 }
+
+.message-success {
+    color: #18A05E;
+    font-size: 14px;
+}
+
+button:disabled {
+    background-color: #C1C5C6;
+}

@@ -38,8 +38,9 @@ components.signUp = `
         </div>
         <div class="message-error" id="password-confirmation-error"></div>
         
-        <button class="btn-primary">Register</button>
-
+        <button class="btn-primary" id="sign-up-btn">Register</button>
+        <div class="message-error" id="sign-up-error"></div>
+        <div class="message-success" id="sign-up-success"></div>
     </form>
 
     <div class="decoration-container">
@@ -72,7 +73,8 @@ components.signIn = `
         </div>
         <div class="message-error" id="password-error"></div>
 
-        <button class="btn-primary">Login</button>
+        <button class="btn-primary" id="sign-in-btn">Login</button>
+        <div class="message-error" id="sign-in-error"></div>
     </form>
 
     <div class="decoration-container">

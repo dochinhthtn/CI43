@@ -40,6 +40,7 @@ view.showScreen = function (screenName) {
                 // nếu dữ liệu thỏa mãn --> gửi
                 if(isPassed(validateResult)) {
                     // gửi dữ liệu qua controller
+                    controller.signIn(email, password);
                 }
 
             }
@@ -92,10 +93,20 @@ view.showScreen = function (screenName) {
 
 view.validate = function (condition, errorTag, message) {
     if (!condition) {
-        document.getElementById(errorTag).innerHTML = message;
+        // document.getElementById(errorTag).innerHTML = message;
+        view.setText(errorTag, message);
         return false;
     } else {
-        document.getElementById(errorTag).innerHTML = "";
+        // document.getElementById(errorTag).innerHTML = "";
+        view.setText(errorTag, "");
         return true;
     }
+}
+
+view.setText = function (tagId, text) {
+    document.getElementById(tagId).innerHTML = text;
+}
+
+view.setActive = function (tagId, active) {
+    document.getElementById(tagId).disabled = !active;
 }
