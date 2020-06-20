@@ -85,3 +85,81 @@ components.signIn = `
     </div>
 </section>
 `;
+
+components.chat = `
+<section class="aside-left">
+    <div class="title">Conversations</div>
+
+    <form class="form-add-conversation">
+        <div class="input-wrapper">
+            <label for="title"><i class="fa fa-comment" aria-hidden="true"></i></label>
+            <input type="text" name="title" id="title">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="friend-email"><i class="fa fa-envelope" aria-hidden="true"></i></label>
+            <input type="text" name="friendEmail" id="friend-email">
+        </div>
+
+        <button class="btn-primary">Add</button>
+    </form>
+
+    <div class="conversations-list">
+        <div class="conversation">
+            <p class="conversation-title">Conversation 1</p>
+            <p class="conversation-members">2 members</p>
+        </div>    
+
+        <div class="conversation">
+            <p class="conversation-title">Conversation 1</p>
+            <p class="conversation-members">2 members</p>
+        </div>    
+
+        <div class="conversation">
+            <p class="conversation-title">Conversation 1</p>
+            <p class="conversation-members">2 members</p>
+        </div> 
+    </div>
+
+</section>
+
+<section class="chat-container">
+
+    <div class="title">Chat: Title 1</div>
+
+    <div class="messages-list">
+        <div class="message">
+            <span>Hello world</span>
+        </div>
+
+        <div class="message">
+            <span>How are you?</span>
+        </div>
+
+        <div class="message your">
+            <span>I'm fine. Thanks bro</span>
+        </div>
+    </div>
+
+    <form class="form-add-message">
+        <div class="input-wrapper">
+            <input type="text" name="messageContent">
+        </div>
+        <button class="btn-primary">Send</button>
+    </form>
+</section>
+
+<section class="aside-right">
+    <div class="title">Detail</div>
+    <div class="conversation-detail">
+        <div class="conversation-members">
+            <p>dochinhthtn@gmail.com</p>
+            <p>someone@gmail.com</p>
+        </div>
+        
+        <div class="conversation-created-at">
+            2020/06/16
+        </div>
+    </div>
+</section>
+`;

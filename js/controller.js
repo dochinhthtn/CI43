@@ -33,10 +33,12 @@ controller.signIn = async function (email, password) {
     // signInWithEmailAndPassword(email, password);
     try {
         await firebase.auth().signInWithEmailAndPassword(email, password);
-        console.log("Sign in successfully");
+        // console.log("Sign in successfully");
+
+        // chuyển qua giao diện chat
+        // view.showScreen("chat");
     } catch (error) {
         view.setText("sign-in-error", error.message);
+        view.setActive("sign-in-btn", true);
     }
-
-    view.setActive("sign-in-btn", true);
 }

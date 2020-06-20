@@ -1,94 +1,53 @@
-// đồng bộ - bất đồng bộ
-// --> xử lý cho code đồng bộ hơn
-// callback hell
-// console.log("Hello world");
+// CRUD
 
-// setTimeout(function() {
-//     console.log("kết nối");
+// create
+async function createData(data = {}) {
+    let newData = await firebase.firestore().collection("sandals").add({
+        brand: "Bitis",
+        color: "gray",
+        size: 50,
+        price: 70
+    });
+    console.log(newData);
+}
 
-//     setTimeout(function() {
-//         console.log("vào trình duyệt");
+// read
+async function readData() {
+    // lấy ra tất cả bản ghi nằm trong sandals
+    // let result = await firebase.firestore().collection("sandals").get();
+    // for(let doc of result.docs) {
+    //     console.log(doc.data());
+    // }
 
-//         setTimeout(function() {
-//             console.log("search google");
+    // lấy ra những bản ghi thỏa mãn điều kiện cho trước
+    let result = await firebase.firestore().collection("sandals").where("brand", "==", "Nike").where('size', '>=', '35').get();
 
-//             setTimeout(function() {
-//                 console.log("xem kết quả");
+    console.log(result);
+    for (let doc of result.docs) {
+        console.log(doc.data());
+    }
+}
 
-//                 setTimeout(function() {
-//                     console.log("ra đê ở hay chưa");
-//                 }, 1000);
-                
-//             }, 5000);
-//         }, 3000);
+// delete
+async function deleteData(docId) {
+    await firebase.firestore().collection('sandals').doc(docId).delete();
+}
 
-//     }, 2000);
+// delete all data
+async function deleteAllData() {
+    // get all sandals
+    let result = await firebase.firestore().collection('sandals').get();
+    // delete each sandal with id
+    for (let doc of result.docs) {
+        await deleteData(doc.id);
+    }
+}
 
-// }, 3000);
-
-
-// xử lý bất đồng bộ --> làm trình tự thực hiện công việc trở nên đồng bộ
-
-// function timeout(ms) {
-//     return new Promise(resolve => setTimeout(resolve, ms));
-// }
-// async function sleep(ms) {
-//     return await timeout(ms);
-// }
-
-// (async function(){
-//     console.log("Hello world");
-//     await sleep(3000);
-//     console.log("Kết nối");
-//     await sleep(2000);
-//     console.log("vào trình duyệt");
-//     await sleep(3000);
-//     console.log("search google");
-
-//     /* 
-//     ...
-//     ...
-//     ...
-//     ...
-//     */
-// })();
-
-// xử lý lỗi (try/catch)
-// chương trình gặp lỗi thì dừng
-
-// try {
-//     // đoạn chương trình có thể gây lỗi 
-// } catch (error) {
-//     // xử lý lỗi
-// }
-
-// let input = prompt("Input id of element to change content");
-// let element = document.getElementById(input);
-// try {
-//     element.innerHTML = "Content changed";
-// } catch (error) {
-//     console.log(error);
-// }
-
-// console.log("End program");
-
-// ctrl + /, alt + shift + a
-
-// let input = Number(prompt("Input a number"));
-
-
-
-// if(input > 0) {
-//     console.log(input * input);
-// } else {
-//     try {
-//         throw new Error("Mày nhập cho cẩn thận vô");
-//     } catch (error) {
-//         // console.log(error);
-//         console.error(error);
-//     }
-// }
-
-// console.log("tính toán xong, tiếp tục chương trình");
-
-// console.log("end program");
+// update data
+async function updateData(docId) {
+    // 
+    await firebase.firestore().collection('sandals').doc(docId).update({
+        brand: 'Nike',
+        price: 100
+    });
+}

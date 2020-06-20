@@ -87,6 +87,10 @@ view.showScreen = function (screenName) {
             }
 
             break;
+
+        case 'chat': 
+            content.innerHTML = components.chat;
+            break;
     }
 }
 
