@@ -2,7 +2,7 @@
 let view = {};
 
 
-view.showScreen = function (screenName) {
+view.showScreen = async function (screenName) {
     /* 
         signIn --> show giao diện của sign in
         signUp --> show giao diện của sign up
@@ -38,7 +38,7 @@ view.showScreen = function (screenName) {
                 ];
 
                 // nếu dữ liệu thỏa mãn --> gửi
-                if(isPassed(validateResult)) {
+                if (isPassed(validateResult)) {
                     // gửi dữ liệu qua controller
                     controller.signIn(email, password);
                 }
@@ -79,7 +79,7 @@ view.showScreen = function (screenName) {
                 // console.log(isPassed(validateResult));
 
                 // nếu dữ liệu thỏa mãn --> gửi dữ liệu
-                if(isPassed(validateResult)) {
+                if (isPassed(validateResult)) {
                     // gửi dữ liệu qua controller
                     controller.signUp(name, email, password);
                 }
@@ -88,8 +88,28 @@ view.showScreen = function (screenName) {
 
             break;
 
-        case 'chat': 
+        case 'chat':
+            //hiển thị giao diện chat
             content.innerHTML = components.chat;
+
+            // lấy conversation & cache lại trong model
+            await controller.loadConversations();
+
+            // lấy dữ liệu từ model và hiển thị lên giao diện
+            let conversationsList = document.getElementById("conversations-list");
+            for(let conversation of model.conversations) {         
+                let html = `
+                <div class="conversation">
+                    <p class="conversation-title">${conversation.title}</p>
+                    <p class="conversation-members">
+                        ${conversation.users.length} 
+                        ${ (conversation.users.length == 1) ? 'member' : 'members' }
+                    </p>
+                </div>`;
+
+                conversationsList.innerHTML += html;
+            }
+            console.log("load xong conversation");
             break;
     }
 }

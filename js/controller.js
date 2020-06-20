@@ -42,3 +42,15 @@ controller.signIn = async function (email, password) {
         view.setActive("sign-in-btn", true);
     }
 }
+
+controller.loadConversations = async function () {
+    // load dữ liệu từ firebase
+    let result = await firebase.firestore().collection('conversations').get();
+    let conversations = [];
+    for(let doc of result.docs) {
+        conversations.push(refineData(doc));
+    }
+
+    // cache dữ liệu vào model
+    model.saveConversations(conversations);
+}

@@ -2,7 +2,9 @@
     margin: 0;
     padding: 0;
     font-family: 'MuseoModerno', cursive;
+    box-sizing: border-box;
 }
+
 
 body {
     background-color: #F8F8F8;
@@ -44,6 +46,7 @@ body {
     width: 100%;
     height: 35px;
     outline: none;
+    background: none;
 }
 
 .btn-primary {
@@ -89,24 +92,22 @@ button:disabled {
 .aside-left {
     width: 30vw;
     height: 100vh;
-    padding: 15px;
 }
 
 .chat-container {
     width: 50vw;
     height: 100vh;
-    padding: 15px;
 }
 
 .aside-right {
     width: 20vw;
     height: 100vh;
-    padding: 15px;
 }
 
 .title {
     height: 50px;
     display: flex;
+    justify-content: center;
     align-items: center;
     background-color: #F1F5F8;
     color: #509DE1;
@@ -115,6 +116,7 @@ button:disabled {
 .conversation {
     background-color: #F1F5F8;
     border-bottom: 1px solid #D6DFE6;
+    padding: 10px;
 }
 
 .conversation-title {
@@ -126,12 +128,16 @@ button:disabled {
 }
 
 .messages-list {
-    height: 80vh;
+    height: calc(100vh - 50px - 56px)
 }
 
 .form-add-message {
     display: flex;
     align-items: center;
+}
+
+.form-add-conversation {
+    padding: 10px;
 }
 
 .message span{

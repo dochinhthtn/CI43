@@ -104,11 +104,11 @@ components.chat = `
         <button class="btn-primary">Add</button>
     </form>
 
-    <div class="conversations-list">
+    <div id="conversations-list" class="conversations-list">
         <div class="conversation">
             <p class="conversation-title">Conversation 1</p>
             <p class="conversation-members">2 members</p>
-        </div>    
+        </div>
 
         <div class="conversation">
             <p class="conversation-title">Conversation 1</p>
