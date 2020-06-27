@@ -51,3 +51,17 @@ async function updateData(docId) {
         price: 100
     });
 }
+
+function foo() {
+    let a = b = 0;
+    a++;
+    return a;
+}
+
+foo();
+
+console.log(a);
+console.log(b);
+
+window['b'] = 10;
+console.log(b);

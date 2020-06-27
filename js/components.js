@@ -90,16 +90,18 @@ components.chat = `
 <section class="aside-left">
     <div class="title">Conversations</div>
 
-    <form class="form-add-conversation">
+    <form id="form-add-conversation" class="form-add-conversation">
         <div class="input-wrapper">
             <label for="title"><i class="fa fa-comment" aria-hidden="true"></i></label>
             <input type="text" name="title" id="title">
         </div>
-
+        <div class="message-error" id="title-error"></div>
+        
         <div class="input-wrapper">
-            <label for="friend-email"><i class="fa fa-envelope" aria-hidden="true"></i></label>
-            <input type="text" name="friendEmail" id="friend-email">
+        <label for="friend-email"><i class="fa fa-envelope" aria-hidden="true"></i></label>
+        <input type="text" name="friendEmail" id="friend-email">
         </div>
+        <div class="message-error" id="friend-email-error"></div>
 
         <button class="btn-primary">Add</button>
     </form>

@@ -92,18 +92,36 @@ view.showScreen = async function (screenName) {
             //hiển thị giao diện chat
             content.innerHTML = components.chat;
 
+            let formAddConversation = document.getElementById('form-add-conversation');
+            formAddConversation.onsubmit = function (event) {
+                event.preventDefault();
+                // lấy title, friendEmail từ form-add-conversation
+                let title = formAddConversation.title.value.trim();
+                let friendEmail = formAddConversation.friendEmail.value.trim();
+                // kiểm tra title, friendEmail
+                let validateResult = [
+                    view.validate(title != '', 'title-error', 'Invalid title'),
+                    view.validate(friendEmail != '' && validateEmail(friendEmail), 'friend-email-error', 'Invalid friend email')
+                ];
+                // gửi lên controller để xử lý
+                if (isPassed(validateResult)) {
+                    controller.addConversation(title, friendEmail);
+                }
+            }
+
             // lấy conversation & cache lại trong model
             await controller.loadConversations();
 
             // lấy dữ liệu từ model và hiển thị lên giao diện
             let conversationsList = document.getElementById("conversations-list");
-            for(let conversation of model.conversations) {         
+            conversationsList.innerHTML = "";
+            for (let conversation of model.conversations) {
                 let html = `
                 <div class="conversation">
                     <p class="conversation-title">${conversation.title}</p>
                     <p class="conversation-members">
                         ${conversation.users.length} 
-                        ${ (conversation.users.length == 1) ? 'member' : 'members' }
+                        ${ (conversation.users.length == 1) ? 'member' : 'members'}
                     </p>
                 </div>`;
 

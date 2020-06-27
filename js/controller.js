@@ -50,7 +50,12 @@ controller.loadConversations = async function () {
     for(let doc of result.docs) {
         conversations.push(refineData(doc));
     }
-
     // cache dữ liệu vào model
     model.saveConversations(conversations);
+}
+
+controller.addConversation = async function (title, friendEmail) {
+    // kiểm tra friendEmail
+    // nhập vào chính email người dùng hiện tại
+    // nhập vào email không tồn tại trong hệ thống
 }
