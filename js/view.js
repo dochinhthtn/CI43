@@ -92,6 +92,7 @@ view.showScreen = async function (screenName) {
             //hiển thị giao diện chat
             content.innerHTML = components.chat;
 
+            // xử lý form thêm conversation
             let formAddConversation = document.getElementById('form-add-conversation');
             formAddConversation.onsubmit = function (event) {
                 event.preventDefault();
@@ -112,12 +113,22 @@ view.showScreen = async function (screenName) {
             // lấy conversation & cache lại trong model
             await controller.loadConversations();
 
-            // lấy dữ liệu từ model và hiển thị lên giao diện
-            let conversationsList = document.getElementById("conversations-list");
-            conversationsList.innerHTML = "";
-            for (let conversation of model.conversations) {
-                let html = `
-                <div class="conversation">
+            // hiển thị conversations
+            view.showConversations();
+
+            // hiển thị cuộc hội thoại hiện tại
+            view.showCurrentConversation();
+            break;
+    }
+}
+
+view.showConversations = function () {
+    // lấy dữ liệu từ model và hiển thị lên giao diện
+    let conversationsList = document.getElementById("conversations-list");
+    conversationsList.innerHTML = "";
+    for (let conversation of model.conversations) {
+        let html = `
+                <div class="conversation" id="conversation-${conversation.id}">
                     <p class="conversation-title">${conversation.title}</p>
                     <p class="conversation-members">
                         ${conversation.users.length} 
@@ -125,13 +136,41 @@ view.showScreen = async function (screenName) {
                     </p>
                 </div>`;
 
-                conversationsList.innerHTML += html;
-            }
-            console.log("load xong conversation");
-            break;
+        conversationsList.innerHTML += html;
+    }
+
+    // bắt sự kiện cho từng conversation
+    for (let conversation of model.conversations) {
+        let conversationDOM = document.getElementById("conversation-" + conversation.id);
+        conversationDOM.onclick = function () {
+            // gán lại current conversation 
+            model.saveCurrentConversation(conversation);
+            // hiển thị lại current conversation
+            view.showCurrentConversation();
+        }
     }
 }
 
+// hiển thị các tin nhắn, thông tin chi tiết của conversation mà người dùng chọn
+view.showCurrentConversation = function () {
+    if (model.currentConversation == null) return;
+
+    // hiển thị tin nhắn
+    // lấy messages-list
+    let currentEmail = firebase.auth().currentUser.email;
+    let messagesList = document.getElementById("messages-list");
+    messagesList.innerHTML = "";
+    for (let message of model.currentConversation.messages) {
+        let isYourMessage = (message.owner == currentEmail) ? 'your' : '';
+        let html = `
+        <div class="message ${isYourMessage}">
+            <span>${message.content}</span>
+        </div>`;
+        messagesList.innerHTML += html;
+    }
+    // hiển thị thông tin chi tiết
+
+}
 
 view.validate = function (condition, errorTag, message) {
     if (!condition) {

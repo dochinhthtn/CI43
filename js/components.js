@@ -129,19 +129,7 @@ components.chat = `
 
     <div class="title">Chat: Title 1</div>
 
-    <div class="messages-list">
-        <div class="message">
-            <span>Hello world</span>
-        </div>
-
-        <div class="message">
-            <span>How are you?</span>
-        </div>
-
-        <div class="message your">
-            <span>I'm fine. Thanks bro</span>
-        </div>
-    </div>
+    <div id="messages-list" class="messages-list"></div>
 
     <form class="form-add-message">
         <div class="input-wrapper">
