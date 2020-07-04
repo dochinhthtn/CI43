@@ -110,6 +110,18 @@ view.showScreen = async function (screenName) {
                 }
             }
 
+            // xử lý form add message (gửi tin nhắn)
+            let formAddMessage = document.getElementById('form-add-message');
+            formAddMessage.onsubmit = function (event) {
+                event.preventDefault();
+                let messageContent = formAddMessage.messageContent.value.trim();
+                if (messageContent == '') return;
+
+                controller.sendMessage(messageContent);
+                
+                formAddMessage.reset();
+            }
+
             // lấy conversation & cache lại trong model
             await controller.loadConversations();
 
@@ -118,6 +130,10 @@ view.showScreen = async function (screenName) {
 
             // hiển thị cuộc hội thoại hiện tại
             view.showCurrentConversation();
+
+            // lắng nghe sự thay đổi từ phía database
+            controller.listenRealtimeUpdate();
+
             break;
     }
 }
@@ -143,8 +159,12 @@ view.showConversations = function () {
     for (let conversation of model.conversations) {
         let conversationDOM = document.getElementById("conversation-" + conversation.id);
         conversationDOM.onclick = function () {
-            // gán lại current conversation 
-            model.saveCurrentConversation(conversation);
+            // gán lại current conversation
+            let foundIndex = model.conversations.findIndex(function (item) {
+                return item.id == conversation.id;
+            });
+
+            model.saveCurrentConversation(model.conversations[foundIndex]);
             // hiển thị lại current conversation
             view.showCurrentConversation();
         }
@@ -170,6 +190,17 @@ view.showCurrentConversation = function () {
     }
     // hiển thị thông tin chi tiết
 
+    let title = document.getElementById("current-conversation-title");
+    title.innerHTML = model.currentConversation.title;
+
+    let members = document.getElementById("current-conversation-members");
+    members.innerHTML = "";
+    for(let member of model.currentConversation.users){
+        members.innerHTML += `<p>${member}</p>`;
+    }
+
+    let createdAt = document.getElementById("current-conversation-created-at");
+    createdAt.innerHTML = model.currentConversation.createdAt;
 }
 
 view.validate = function (condition, errorTag, message) {

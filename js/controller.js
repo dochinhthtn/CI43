@@ -44,8 +44,13 @@ controller.signIn = async function (email, password) {
 }
 
 controller.loadConversations = async function () {
+    let currentEmail = firebase.auth().currentUser.email;
     // load dữ liệu từ firebase
-    let result = await firebase.firestore().collection('conversations').get();
+    let result = await firebase
+        .firestore()
+        .collection('conversations')
+        .where("users","array-contains", currentEmail)
+        .get();
     let conversations = [];
     for (let doc of result.docs) {
         conversations.push(refineData(doc));
@@ -54,7 +59,7 @@ controller.loadConversations = async function () {
     model.saveConversations(conversations);
 
     // gán 1 nào đó conversation cho currentConversation
-    if(conversations.length > 0){
+    if (conversations.length > 0) {
         // gán currentConversation là phần tử conversation đầu tiên
         model.currentConversation = model.conversations[0];
     }
@@ -85,17 +90,61 @@ controller.addConversation = async function (title, friendEmail) {
             createdAt: new Date().toLocaleString()
         };
 
-        let result = await firebase.firestore().collection("conversations").add(newConversation);
-        newConversation.id = result.id;
-
-        // cache newConversation vào trong model
-        model.updateConversation(newConversation);
-
-        // hiển thị lại các conversations
-        view.showConversations();
-
+        await firebase.firestore().collection("conversations").add(newConversation);
     } catch (error) {
         view.setText("friend-email-error", error.message);
     }
+}
 
+controller.sendMessage = async function (messageContent) {
+    let currentEmail = firebase.auth().currentUser.email;
+    let message = {
+        content: messageContent,
+        owner: currentEmail,
+        createdAt: new Date().toLocaleString()
+    };
+
+    // cập nhật message vào trong currentConversation trên firestore
+    await firebase
+        .firestore()
+        .collection("conversations")
+        .doc(model.currentConversation.id)
+        .update({
+            messages: firebase.firestore.FieldValue.arrayUnion(message)
+        });
+
+
+}
+
+controller.listenRealtimeUpdate = function () {
+    let isFirstRun = true;
+    firebase.firestore().collection("conversations").onSnapshot(function (snapshot) {
+        if (isFirstRun) {
+            isFirstRun = false;
+            return;
+        }
+
+        snapshot.docChanges().forEach(function (change) {
+            if (change.type == "added") {
+                // refine data
+                let conversation = refineData(change.doc);
+
+                // cập nhật vào trong model
+                model.updateConversation(conversation);
+
+                // hiển thị ra màn hình
+                view.showConversations();
+            } else if (change.type == "modified") {
+                // refine data
+                let conversation = refineData(change.doc);
+
+                // cập nhật vào trong model
+                model.updateConversation(conversation);
+
+                // hiển thị ra màn hình
+                view.showCurrentConversation();
+            }
+        });
+
+    });
 }

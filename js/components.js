@@ -127,11 +127,11 @@ components.chat = `
 
 <section class="chat-container">
 
-    <div class="title">Chat: Title 1</div>
+    <div class="title">Chat: <span id="current-conversation-title"></span> </div>
 
     <div id="messages-list" class="messages-list"></div>
 
-    <form class="form-add-message">
+    <form id="form-add-message" class="form-add-message">
         <div class="input-wrapper">
             <input type="text" name="messageContent">
         </div>
@@ -142,14 +142,9 @@ components.chat = `
 <section class="aside-right">
     <div class="title">Detail</div>
     <div class="conversation-detail">
-        <div class="conversation-members">
-            <p>dochinhthtn@gmail.com</p>
-            <p>someone@gmail.com</p>
-        </div>
+        <div id="current-conversation-members" class="conversation-members"></div>
         
-        <div class="conversation-created-at">
-            2020/06/16
-        </div>
+        <div id="current-conversation-created-at" class="conversation-created-at"></div>
     </div>
 </section>
 `;
